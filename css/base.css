@@ -1,0 +1,123 @@
+html {
+  font-size: 12px;
+  box-sizing: border-box;
+}
+body {
+  font-family: "microsoft yahei", Verdana, Geneva, Arial, sans-serif;
+  color: #555;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: transparent;
+  cursor: default;
+}
+body,
+dl,
+dd,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+p,
+blockquote,
+div,
+li,
+header,
+footer {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  box-sizing: inherit;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+ul,
+ol {
+  list-style: none;
+}
+a:link,
+a:visited {
+  color: #333;
+  text-decoration: none;
+}
+a:active,
+a:hover {
+  color: #cd1a0f;
+}
+input,button
+textarea {
+  outline: none;
+}
+button:hover,
+button:active{
+	outline: none;
+	background: rgba(255,155,0,.6);
+	
+}
+textarea:active,
+textarea:hover
+{
+	outline: none;
+}
+
+img {
+  max-width: 100% !important;
+  vertical-align: bottom;
+}
+[v-cloak]{
+	display: none;
+}
+/* 底部导航 */
+.task-footer{
+	z-index:999;
+	position: fixed;
+	left:0;
+	right:0;
+	width: 100%;
+	bottom:0;
+	background: #fff;
+	border-top:0.1rem solid #ccc;
+	padding-top: 0.4rem;
+}
+
+.task-footer>ul{
+	display: flex;
+}
+.task-footer>ul>li{
+	width: 20%;
+	text-align: center;
+	color:#999999;
+}
+.task-footer>ul>li>a{
+	display: block;
+}
+.task-footer>ul>li>a>img{
+	width: 1.8rem;
+	height: 1.8rem;
+}
+.modal-common{
+	position: fixed;
+	left:0;right:0;
+	top:0;bottom:0;
+	background: #000;
+	opacity: 0.5;
+	z-index:1000;
+}

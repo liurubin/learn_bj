@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="css/base.css">
+		<style>
+			.ul-list{
+				display: flex;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<cart :money="num"></cart>
+		</div>
+		<template id="cart">
+			<div>
+				<ul class="ul-list">
+					<li>购置税</li>
+					<li></li>
+					<li>
+						<input type="text" :value="gouzhi" readonly="readonly">
+					</li>					
+				</ul>
+				<ul class="ul-list">
+					<li>消费税</li>
+					<li></li>
+					<li>
+						<input type="text" :value="xiaofei" readonly="readonly">
+					</li>					
+				</ul>
+				<ul class="ul-list">
+					<li>上牌费用</li>
+					<li></li>
+					<li>
+						<input type="text" :value="shangpai" readonly="readonly">
+					</li>					
+				</ul>
+				<ul class="ul-list">
+					<li>车船使用费</li>
+					<li>						
+						<input type="radio" v-model="pailiang" value="1">
+						<input type="radio" v-model="pailiang" value="1.6">
+						<input type="radio" v-model="pailiang" value="2.0">
+						<input type="radio" v-model="pailiang" value="2.5">
+						<input type="radio" v-model="pailiang" value="3">
+						<input type="radio" v-model="pailiang" value="4">
+						<input type="radio" v-model="pailiang" value="4.1">
+					</li>
+					<li>
+						<input type="text" :value="chechuan" readonly="readonly">
+					</li>					
+				</ul>
+			</div>
+		</template>
+		<script src="js/vue.min.js"></script>
+		<script>			
+			Vue.component("cart", {
+				template: "#cart",
+				data() {
+					return {
+						gouzhi: 0,
+						xiaofei:0,
+						person:true,//是否个人办理
+						personMoney:0,//个人办理上牌费用
+						chechuanMoney:0,//个人办理车船费
+						shangpai:0,
+						chechuan:0,
+						pailiang:""
+					}
+				},
+				components: {
+
+				},
+				props: ["money"],
+				methods: {
+					getPositive(val) {
+						if (parseFloat(val) < 0) {
+							return 0;
+						}
+						return val;
+					},
+					//购置税
+					gouzhiFun() {
+						this.gouzhi =this.getPositive(Math.round((this.money / 1.17) * 0.1))
+					},
+					//消费税
+					xiaofeiFun(){
+						this.xiaofei=this.getPositive(Math.round((this.money / 1.17) * 0.1))
+					},
+					//上牌费
+					shangpaiFun(){
+						if(!this.person){
+							return this.personMoney
+						}
+						return 500;
+					},
+					//车船税
+					chechuanFun(){
+						if(!this.person){
+							return this.chechuanMoney
+						}
+						if (this.pailiang <= 1.0) {
+							return 300;
+						} else if (this.pailiang > 1.0 && this.pailiang <= 1.6) {
+							return 420;
+						} else if (this.pailiang > 1.6 && this.pailiang <= 2.0) {
+							return 480
+						} else if (this.pailiang > 2.0 && this.pailiang <= 2.5) {
+							return 900
+						} else if (this.pailiang > 2.5 && this.pailiang <= 3.0) {
+							return 1920
+						} else if (this.pailiang > 3.0 && this.pailiang <= 4.0) {
+							return 3480
+						} else if (this.pailiang > 4.0) {
+							return 5280
+						}
+						return 480;
+					},
+					
+					
+				},
+				mounted() {
+					console.log(this.pailiang)
+					this.gouzhiFun()
+					this.xiaofeiFun()
+					this.shangpai=this.shangpaiFun()
+					this.chechuan=this.chechuanFun()
+				},
+				updated(){
+					this.chechuan=this.chechuanFun()
+				}
+			})
+
+
+			new Vue({
+				el: "#app",
+				data: {
+					num: 10000
+				},
+			})
+		</script>
+	</body>
+</html>
